@@ -10,7 +10,7 @@ export const profile = {
   location: "Ghaziabad, India",
   timezoneLabel: "IST (UTC+5:30)",
   available: true,
-  siteUrl: "https://yashsharma.vercel.app",
+  siteUrl: "https://portfolio-drab-six-48.vercel.app",
   socials: {
     github: "https://github.com/yashsharma499",
     linkedin: "https://www.linkedin.com/in/yashsharma499",
