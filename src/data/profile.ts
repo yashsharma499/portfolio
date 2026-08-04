@@ -13,7 +13,7 @@ export const profile = {
   siteUrl: "https://portfolio-drab-six-48.vercel.app",
   socials: {
     github: "https://github.com/yashsharma499",
-    linkedin: "https://www.linkedin.com/in/yashsharma499",
+    linkedin: "https://www.linkedin.com/in/yashkumar-sharma/",
   },
   about: [
     "I digitised an entire company. At Hagerstone International — a design & build firm running 44 project sites across India — I designed, built and shipped eight production systems that now handle the company's procurement, finance, labour payments, hiring and analytics.",

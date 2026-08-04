@@ -67,6 +67,11 @@ export default function Timeline() {
                 {item.title}
                 <span className="text-muted-foreground font-normal"> · {item.org}</span>
               </h3>
+              {(item.type || item.location) && (
+                <p className="mt-1 text-xs text-subtle-foreground">
+                  {[item.type, item.location].filter(Boolean).join(" · ")}
+                </p>
+              )}
               <ul className="mt-3 space-y-2">
                 {item.points.map((pt) => (
                   <li key={pt} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
