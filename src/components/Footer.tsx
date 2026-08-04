@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Mail, FileDown } from "lucide-react";
+import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/data/profile";
 import MagneticButton from "@/components/MagneticButton";
@@ -39,7 +39,6 @@ export default function Footer() {
             { href: profile.socials.github, icon: GithubIcon, label: "GitHub" },
             { href: profile.socials.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
             { href: `mailto:${profile.email}`, icon: Mail, label: "Email" },
-            { href: profile.resumeUrl, icon: FileDown, label: "Resume" },
           ].map(({ href, icon: Icon, label }) => (
             <MagneticButton key={label} strength={0.3}>
               <a

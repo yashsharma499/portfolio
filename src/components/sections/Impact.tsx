@@ -5,7 +5,17 @@ import { useInView } from "motion/react";
 import { profile } from "@/data/profile";
 import Reveal from "@/components/Reveal";
 
-function Counter({ value, suffix }: { value: number; suffix: string }) {
+function Counter({
+  value,
+  prefix,
+  suffix,
+  decimals,
+}: {
+  value: number;
+  prefix: string;
+  suffix: string;
+  decimals: number;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [display, setDisplay] = useState(0);
@@ -16,22 +26,29 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
       setDisplay(value);
       return;
     }
-    const duration = 1400;
+    const duration = 1500;
     const start = performance.now();
     let raf: number;
     const tick = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      setDisplay(Math.round(eased * value));
+      setDisplay(eased * value);
       if (p < 1) raf = requestAnimationFrame(tick);
+      else setDisplay(value);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [inView, value]);
 
+  const formatted = display.toLocaleString("en-IN", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+
   return (
     <span ref={ref} className="tabular-nums">
-      {display.toLocaleString("en-IN")}
+      {prefix}
+      {formatted}
       {suffix}
     </span>
   );
@@ -39,11 +56,14 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Impact() {
   return (
-    <section className="relative border-y border-border-soft bg-surface/60">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+    <section className="relative overflow-hidden border-y border-border-soft bg-linear-to-b from-white/70 to-surface/50">
+      <div className="relative mx-auto max-w-6xl px-6 py-16">
         <Reveal>
-          <p className="mb-10 text-center font-mono text-xs tracking-[0.3em] text-accent uppercase">
-            Delivered to date — real production numbers
+          <p className="mb-3 text-center font-mono text-xs tracking-[0.3em] text-accent uppercase">
+            Delivered in production
+          </p>
+          <p className="mb-12 text-center text-sm text-subtle-foreground">
+            Live figures from the systems I built and run
           </p>
         </Reveal>
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
@@ -51,7 +71,7 @@ export default function Impact() {
             <Reveal key={d.label} delay={Math.min(i * 0.05, 0.25)}>
               <div className="text-center">
                 <p className="text-gradient font-display text-3xl font-bold sm:text-4xl">
-                  <Counter value={d.value} suffix={d.suffix} />
+                  <Counter value={d.value} prefix={d.prefix} suffix={d.suffix} decimals={d.decimals} />
                 </p>
                 <p className="mx-auto mt-2 max-w-36 text-xs leading-relaxed text-muted-foreground">
                   {d.label}

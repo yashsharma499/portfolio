@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-import { profile } from "@/data/profile";
 import MagneticButton from "@/components/MagneticButton";
 
 const links = [
@@ -26,9 +25,11 @@ export default function Nav() {
       <nav className="glass flex items-center justify-between rounded-full px-5 py-3">
         <Link href="/" className="font-display text-lg font-bold tracking-tight" data-cursor>
           <span className="text-gradient">YS</span>
-          <span className="ml-2 hidden font-mono text-[10px] font-normal text-muted-foreground sm:inline">
-            {pathname?.startsWith("/work") ? "← back home" : "portfolio v1"}
-          </span>
+          {pathname?.startsWith("/work") && (
+            <span className="ml-2 hidden font-mono text-[10px] font-normal text-muted-foreground sm:inline">
+              ← back home
+            </span>
+          )}
         </Link>
         <ul className="flex items-center gap-1 sm:gap-2">
           {links.map((l) => (
@@ -43,15 +44,6 @@ export default function Nav() {
               </MagneticButton>
             </li>
           ))}
-          <li className="hidden items-center gap-2 pl-2 sm:flex">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="font-mono text-[10px] text-muted-foreground">
-              {profile.available ? "open to work" : "booked"}
-            </span>
-          </li>
         </ul>
       </nav>
     </motion.header>

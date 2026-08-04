@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Zap } from "lucide-react";
 import { caseStudies, companyIntro } from "@/data/company-work";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
@@ -55,7 +55,7 @@ export default function CompanyWork() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="min-w-0">
-                    <h3 className="font-display truncate text-2xl font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">
+                    <h3 className="font-display text-2xl font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">
                       {cs.title}
                       {cs.flagship && (
                         <span className="ml-3 align-middle rounded-full bg-primary/20 px-2.5 py-1 font-mono text-[10px] tracking-wider text-primary uppercase">
@@ -65,10 +65,11 @@ export default function CompanyWork() {
                     </h3>
                     <p className="mt-1 truncate text-sm text-muted-foreground">{cs.short}</p>
                     <span
-                      className="mt-2 inline-block rounded-full px-3 py-1 font-mono text-[10px] font-semibold tracking-wide"
-                      style={{ background: `${cs.accent}14`, color: cs.accent }}
+                      className="mt-2.5 inline-flex items-start gap-2 rounded-lg px-3 py-1.5 text-xs font-medium"
+                      style={{ background: `${cs.accent}12`, color: cs.accent }}
                     >
-                      {cs.metric}
+                      <Zap size={13} className="mt-0.5 shrink-0" aria-hidden />
+                      {cs.solution}
                     </span>
                   </div>
                 </div>

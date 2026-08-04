@@ -1,6 +1,6 @@
 "use client";
 
-import { FileDown, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/data/profile";
 import TextReveal from "@/components/TextReveal";
@@ -28,9 +28,9 @@ export default function Contact() {
         </TextReveal>
         <TextReveal
           as="h2"
-          split="words"
+          split="block"
           delay={0.15}
-          className="text-gradient glow-text font-display text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl"
+          className="text-gradient font-display text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl"
         >
           worth governing.
         </TextReveal>
@@ -59,7 +59,7 @@ export default function Contact() {
           {[
             { href: profile.socials.github, icon: GithubIcon, label: "GitHub" },
             { href: profile.socials.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
-            { href: profile.resumeUrl, icon: FileDown, label: "Resume" },
+            { href: `mailto:${profile.email}`, icon: Mail, label: "Email" },
           ].map(({ href, icon: Icon, label }) => (
             <MagneticButton key={label} strength={0.3}>
               <a

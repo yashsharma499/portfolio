@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
-import { ArrowDown, FileDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import { profile } from "@/data/profile";
 import TextReveal from "@/components/TextReveal";
@@ -53,10 +53,10 @@ export default function Hero() {
         </TextReveal>
         <TextReveal
           as="h1"
-          split="chars"
+          split="block"
           immediate
-          delay={2.0}
-          className="text-gradient glow-text font-display text-[13vw] leading-[0.95] font-bold tracking-tight sm:text-7xl md:text-8xl lg:text-[7rem]"
+          delay={2.1}
+          className="text-gradient font-display text-[13vw] leading-[0.95] font-bold tracking-tight sm:text-7xl md:text-8xl lg:text-[7rem]"
         >
           Sharma
         </TextReveal>
@@ -67,8 +67,8 @@ export default function Hero() {
           transition={{ delay: 2.5, duration: 0.7 }}
           className="mt-8 max-w-xl text-base text-muted-foreground sm:text-lg"
         >
-          {profile.tagline} Eight production systems governing procurement, finance
-          and payments for a company running 27+ sites.
+          {profile.tagline} Eight production systems governing ₹11.5 Cr of
+          procurement, company finances and payments across 44 project sites.
         </motion.p>
 
         <motion.div
@@ -88,12 +88,11 @@ export default function Hero() {
           </MagneticButton>
           <MagneticButton>
             <a
-              href={profile.resumeUrl}
-              download
+              href="#contact"
               data-cursor
               className="inline-flex h-12 items-center gap-2 rounded-full border border-border-soft bg-card px-7 font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
             >
-              <FileDown size={16} /> Resume
+              Get in touch
             </a>
           </MagneticButton>
           <MagneticButton>

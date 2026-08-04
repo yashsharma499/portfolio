@@ -3,8 +3,8 @@ export type CaseStudy = {
   title: string;
   short: string;
   tag: string;
-  /** headline real-data metric shown on the work list */
-  metric: string;
+  /** the business problem this system solves, in one line */
+  solution: string;
   summary: string;
   stats: { value: string; label: string }[];
   problem: string;
@@ -21,7 +21,7 @@ export const companyIntro = {
   company: "Hagerstone International Pvt. Ltd.",
   role: "Full-Stack & AI Engineer",
   context:
-    "An interior design & turnkey build firm operating across 27+ sites in India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine.",
+    "An interior design & turnkey build firm running 44 project sites across India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine.",
   themes: [
     "WhatsApp as the company's operating system — approvals, dispatch and reminders over chat, in English and Hindi",
     "AI proposes, a named human disposes — an LLM never releases money",
@@ -36,14 +36,14 @@ export const caseStudies: CaseStudy[] = [
     title: "Hagerstone Hub",
     short: "Unified company portal — one login for the entire business",
     tag: "Flagship · Platform",
-    metric: "8 apps · 14 roles · 1 login",
+    solution: "Replaces 3 logins and scattered spreadsheets with one portal the whole company works from",
     flagship: true,
     summary:
       "The single sign-on operations portal for the whole company: eight business apps behind one login, plus a delegation & gamification engine, a WhatsApp command center, founder analytics, and an agentic SQL chatbot.",
     stats: [
+      { value: "75", label: "employees using it daily" },
       { value: "8", label: "business apps unified" },
-      { value: "14", label: "roles on one identity spine" },
-      { value: "15", label: "edge functions" },
+      { value: "44", label: "project sites managed" },
       { value: "3→1", label: "databases consolidated" },
     ],
     problem:
@@ -80,14 +80,14 @@ export const caseStudies: CaseStudy[] = [
     title: "CPS — Centralised Procurement",
     short: "Anti-corruption procurement, engineered structurally",
     tag: "Procurement · AI",
-    metric: "760+ suppliers · 250+ PRs processed",
+    solution: "Stops price gouging and vendor favouritism — every rupee bought at a benchmarked, auditable rate",
     summary:
       "The full procurement lifecycle — requisition to payment — rebuilt to structurally guarantee zero corruption, best market rates and full auditability. Running in production at real scale.",
     stats: [
-      { value: "760+", label: "suppliers" },
-      { value: "250+", label: "purchase requisitions" },
-      { value: "37", label: "pages / modules" },
-      { value: "65+", label: "database tables" },
+      { value: "₹11.5 Cr", label: "procurement value processed" },
+      { value: "837", label: "suppliers managed" },
+      { value: "486", label: "purchase requisitions" },
+      { value: "254", label: "purchase orders issued" },
     ],
     problem:
       "Procurement for a construction company is where money leaks: cozy vendor relationships, invisible price gouging, untracked advances. Policy alone doesn't fix it — structure does.",
@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
     impact: [
       "Every rupee of procurement is traceable from request to reconciled payment.",
       "Fresh suppliers get a structural seat at the table — rates stay honest without anyone policing.",
-      "1,800+ audit entries and counting; disputes end at the immutable snapshot.",
+      "4,200+ audit entries and counting; disputes end at the immutable snapshot.",
     ],
     stack: ["React 19", "TypeScript", "Supabase", "Postgres", "Edge Functions", "Claude Vision", "jsPDF", "n8n", "WhatsApp API"],
     accent: "#6366F1",
@@ -122,14 +122,14 @@ export const caseStudies: CaseStudy[] = [
     title: "Finance — Imprest & Expense",
     short: "AI-verified field cash, WhatsApp-approved",
     tag: "Finance · Mobile",
-    metric: "27+ sites · every rupee traceable",
+    solution: "Field cash released in minutes over WhatsApp, with AI checking every receipt for fraud",
     summary:
-      "Imprest-first expense management across 27+ sites: no receipt exists without an approved, funded advance behind it. AI verifies receipts; approvers reply on WhatsApp.",
+      "Imprest-first expense management across 44 project sites: no receipt exists without an approved, funded advance behind it. AI verifies receipts; approvers reply on WhatsApp.",
     stats: [
-      { value: "27+", label: "sites covered" },
-      { value: "36", label: "ordered SQL migrations" },
-      { value: "94%", label: "auto-verify threshold" },
-      { value: "2", label: "languages (EN + HI)" },
+      { value: "₹1.96 Cr", label: "payments disbursed" },
+      { value: "1,241", label: "cash advances processed" },
+      { value: "2,197", label: "expenses verified" },
+      { value: "44", label: "sites covered" },
     ],
     problem:
       "Field teams need cash fast; finance needs control. Paper receipts, untracked advances and chat-thread approvals meant money moved faster than accountability.",
@@ -164,7 +164,7 @@ export const caseStudies: CaseStudy[] = [
     title: "LCS — Labour & Contractor",
     short: "Every wage payment governed, AI-checked, human-confirmed",
     tag: "Payments · Governance",
-    metric: "100% of wage payments gated",
+    solution: "No contractor gets paid without verified proof — ghost labour and inflated bills stop at the gate",
     summary:
       "Contractor and daily-wage payments from onboarding to retention release — built for field teams that barely touch software. AI checks everything; a named human confirms; AI never releases money.",
     stats: [
@@ -201,14 +201,14 @@ export const caseStudies: CaseStudy[] = [
     title: "HireFlow — HR & Attendance",
     short: "AI hiring pipeline + zero-cost geofenced attendance",
     tag: "HR · Automation",
-    metric: "18,492 records migrated · ₹0 API cost",
+    solution: "Cuts hiring effort with AI screening, and proves site attendance without hardware or subscriptions",
     summary:
       "The company's hiring pipeline — sourcing to offer letter — with AI at every stage, plus a geofenced attendance system built entirely on free infrastructure.",
     stats: [
-      { value: "9", label: "AI edge functions" },
-      { value: "18,492", label: "attendance rows migrated" },
-      { value: "110", label: "live test assertions" },
+      { value: "75", label: "employees on attendance" },
+      { value: "9", label: "AI-powered hiring stages" },
       { value: "₹0", label: "maps/geo API cost" },
+      { value: "100%", label: "candidate PII secured" },
     ],
     problem:
       "Hiring ran on inboxes and gut feel; attendance ran on a Google Sheet. Both needed structure without adding recurring API costs.",
@@ -221,7 +221,7 @@ export const caseStudies: CaseStudy[] = [
     architecture: [
       "Deliberately free geo stack: browser geolocation, OpenStreetMap tiles, open reverse-geocoding, haversine geofence math — no paid maps API.",
       "An RLS hardening pass closed a real hole where anonymous users could read and write candidate PII across 11 tables.",
-      "18,492 attendance rows migrated from Google Sheets to Postgres — with an honest ledger of the 28 ambiguous names that couldn't be auto-mapped.",
+      "Attendance moved off Google Sheets into a governed database, so payroll and site presence finally reconcile.",
     ],
     ai: [
       "Resume parsing across PDF and Word, screening against role requirements with structured verdicts.",
@@ -239,7 +239,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Facade Management System",
     short: "Complete facade business system — rates to tenders to site execution",
     tag: "End-to-End System",
-    metric: "6 systems · 75 materials · ₹1 Excel parity",
+    solution: "Turns days of Excel estimating into minutes, with quotes and site execution on the same record",
     summary:
       "The complete facade business on one system: rate calculation across six glazing systems, versioned estimates, client quotation PDFs, tender management, budget sheets, material masters and SLA-tracked site execution — with the costing engine verified to match the legacy Excel to within ₹1.",
     stats: [
@@ -272,45 +272,11 @@ export const caseStudies: CaseStudy[] = [
     accent: "#0284c7",
   },
   {
-    slug: "procurement-intelligence",
-    title: "Procurement Intelligence",
-    short: "Invoice PDFs → structured rate history",
-    tag: "Data Pipeline · LLM",
-    metric: "every invoice queryable, LLM cost paid once",
-    summary:
-      "A rate-intelligence database built from vendor invoices: PDFs in, structured LLM-extracted data out, searchable by material or vendor with full historical rate trends.",
-    stats: [
-      { value: "3", label: "pipeline stages" },
-      { value: "1×", label: "LLM cost per document, ever" },
-      { value: "GST", label: "keyed vendor dedup" },
-    ],
-    problem:
-      "What did this material actually cost us last year, and from whom? The answer lived in a thousand PDF invoices nobody could query.",
-    built: [
-      "Batch ingestion pipeline: extract text from PDFs, structure it with an LLM, import to Postgres — skipping failures and continuing.",
-      "Search by material or vendor with historical rate trends, via both a data app and a React frontend.",
-      "A JSON backfill system that upgrades already-extracted data when the schema evolves — the expensive LLM pass never repeats.",
-    ],
-    architecture: [
-      "Clean separation of extract → JSON → import stages; idempotent duplicate detection by file path.",
-      "Vendor deduplication keyed on GST number with exact-name fallback.",
-      "Versioned SQL schema and migrations; optional API-key auth on all endpoints.",
-    ],
-    ai: [
-      "LLM-based structured extraction from messy, inconsistent invoice layouts into typed schemas.",
-    ],
-    impact: [
-      "Procurement negotiates with historical truth on screen — the analytical backbone behind live rate benchmarking.",
-    ],
-    stack: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "pdfplumber", "OpenAI", "Streamlit", "React"],
-    accent: "#0891B2",
-  },
-  {
     slug: "lead-scraper",
     title: "Lead Scraper",
     short: "Vendor discovery with a pay-once cache",
     tag: "Tooling · Cost Engineering",
-    metric: "1× API cost per unique search, ever",
+    solution: "Finds and scores vendors in any city instantly — and never pays for the same search twice",
     summary:
       "Search contractors and vendors across India, score them for commercial fitness, and never pay for the same search twice — a read-through cache keeps the whole thing inside free-tier limits.",
     stats: [

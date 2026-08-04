@@ -69,7 +69,7 @@ export default function About() {
       <div className="mt-24 overflow-hidden mask-x-from-80% mask-x-to-100%" aria-hidden>
         <div className="animate-marquee flex w-max gap-10 hover:[animation-play-state:paused]">
           {[...marqueeSkills, ...marqueeSkills].map((s, i) => (
-            <span key={i} className="font-display text-2xl font-semibold whitespace-nowrap text-transparent" style={{ WebkitTextStroke: "1px rgba(99,102,241,0.35)" }}>
+            <span key={i} className="font-display text-2xl font-semibold whitespace-nowrap text-transparent" style={{ WebkitTextStroke: "1px rgba(99,102,241,0.75)" }}>
               {s}
             </span>
           ))}

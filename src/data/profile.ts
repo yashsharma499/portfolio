@@ -10,25 +10,24 @@ export const profile = {
   location: "Ghaziabad, India",
   timezoneLabel: "IST (UTC+5:30)",
   available: true,
-  resumeUrl: "/Yash_Kumar_Sharma_Resume.pdf",
   siteUrl: "https://yashsharma.vercel.app",
   socials: {
     github: "https://github.com/yashsharma499",
     linkedin: "https://www.linkedin.com/in/yashsharma499",
   },
   about: [
-    "I digitised an entire company. At Hagerstone International — a design & build firm running 27+ project sites across India — I designed, built and shipped eight production systems that now handle the company's procurement, finance, labour payments, hiring and analytics.",
-    "The results are concrete: 760+ suppliers and 250+ procurement requests flowing through an anti-corruption purchase pipeline, field cash across 27+ sites approved and AI-verified over WhatsApp, every contractor payment gated and audited, and 18,000+ spreadsheet records migrated into governed databases. All of it behind one login, on one platform, with one audit trail.",
+    "I digitised an entire company. At Hagerstone International — a design & build firm running 44 project sites across India — I designed, built and shipped eight production systems that now handle the company's procurement, finance, labour payments, hiring and analytics.",
+    "The results are concrete: ₹11.5 Cr of procurement processed through an anti-corruption purchase pipeline, ₹1.96 Cr of payments disbursed with a full audit trail, 837 suppliers under management, and 75 employees running their daily work across 44 project sites. All of it behind one login, on one platform.",
     "My rule for AI in business: it proposes, a named human disposes. An LLM never releases money. That principle — plus ruthless cost engineering — is why these systems run daily operations, not demos.",
   ],
-  /** headline numbers — real data from the production systems */
+  /** headline numbers — live figures from the production database */
   delivered: [
-    { value: 8, suffix: "", label: "production systems running one company" },
-    { value: 760, suffix: "+", label: "suppliers managed through procurement" },
-    { value: 250, suffix: "+", label: "purchase requisitions processed" },
-    { value: 27, suffix: "+", label: "project sites on automated finance" },
-    { value: 18492, suffix: "", label: "records migrated from spreadsheets" },
-    { value: 1876, suffix: "+", label: "audited actions on record" },
+    { value: 11.5, prefix: "₹", suffix: " Cr", decimals: 1, label: "procurement value processed" },
+    { value: 1.96, prefix: "₹", suffix: " Cr", decimals: 2, label: "payments disbursed through the system" },
+    { value: 75, prefix: "", suffix: "", decimals: 0, label: "employees using the platform daily" },
+    { value: 837, prefix: "", suffix: "", decimals: 0, label: "suppliers onboarded & managed" },
+    { value: 486, prefix: "", suffix: "", decimals: 0, label: "purchase requisitions processed" },
+    { value: 44, prefix: "", suffix: "", decimals: 0, label: "project sites running on the systems" },
   ],
   principles: [
     { title: "AI proposes, humans dispose", body: "Every AI decision path ends at a named human. Confidence scores, audit logs, and dry-runs before anything irreversible." },
