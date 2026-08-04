@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { profile } from "@/data/profile";
 import { marqueeSkills } from "@/data/skills";
@@ -7,24 +8,37 @@ import SectionHeading from "@/components/SectionHeading";
 import SpotlightCard from "@/components/SpotlightCard";
 import Reveal from "@/components/Reveal";
 
-function AvatarOrb() {
+function Portrait() {
   return (
-    <div className="relative mx-auto aspect-square w-56 sm:w-72" aria-hidden>
+    <div className="relative mx-auto aspect-square w-56 sm:w-72">
+      {/* soft rotating glow behind the photo */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 26, ease: "linear" }}
-        className="absolute inset-0 rounded-full bg-conic from-primary/50 via-accent/40 to-primary/50 opacity-60 blur-2xl"
+        className="absolute -inset-2 rounded-full bg-conic from-primary/45 via-accent/35 to-primary/45 opacity-70 blur-2xl"
+        aria-hidden
       />
-      <div className="absolute inset-4 rounded-full bg-linear-to-br from-[#ede9fe] via-white to-[#cffafe] shadow-[inset_0_0_50px_rgba(124,58,237,0.15)]" />
-      <div className="glass absolute inset-4 flex items-center justify-center rounded-full">
-        <span className="font-display text-6xl font-bold text-gradient">YS</span>
+      {/* gradient ring */}
+      <div className="absolute inset-0 rounded-full bg-linear-to-br from-primary via-secondary to-accent p-0.75 shadow-[0_12px_40px_rgba(124,58,237,0.22)]">
+        <div className="relative h-full w-full overflow-hidden rounded-full bg-card">
+          <Image
+            src="/yash.jpg"
+            alt="Yash Kumar Sharma"
+            fill
+            sizes="(max-width: 640px) 224px, 288px"
+            className="object-cover"
+            priority={false}
+          />
+        </div>
       </div>
+      {/* orbiting accent dot */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-        className="absolute inset-0"
+        className="absolute -inset-2"
+        aria-hidden
       >
-        <span className="absolute top-3 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_12px_rgba(124,58,237,0.6)]" />
+        <span className="absolute top-0 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_12px_rgba(8,145,178,0.7)]" />
       </motion.div>
     </div>
   );
@@ -61,7 +75,13 @@ export default function About() {
         </div>
 
         <Reveal delay={0.15} className="lg:sticky lg:top-28">
-          <AvatarOrb />
+          <Portrait />
+          <p className="mt-5 text-center font-mono text-xs text-subtle-foreground">
+            {profile.name}
+          </p>
+          <p className="mt-1 text-center font-mono text-[11px] text-accent">
+            {profile.role}
+          </p>
         </Reveal>
       </div>
 
