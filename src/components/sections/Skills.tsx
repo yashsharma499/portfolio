@@ -24,7 +24,7 @@ export default function Skills() {
     >
       <div className="relative mx-auto max-w-6xl px-6 py-28">
         <SectionHeading
-          index="04"
+          index="06"
           eyebrow="Stack"
           title="Tools of the trade"
           description="The AI layer is the differentiator — everything else exists to ship it reliably."

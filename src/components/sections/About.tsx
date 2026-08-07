@@ -48,7 +48,7 @@ export default function About() {
   return (
     <section id="about" className="relative mx-auto max-w-6xl px-6 py-28">
       <SectionHeading
-        index="03"
+        index="05"
         eyebrow="About"
         title="I ship systems, not demos"
         description="What a business owner gets when they work with me: operations that run themselves, money that can't move without a trail, and AI that answers to a human."

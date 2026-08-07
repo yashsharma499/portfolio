@@ -18,7 +18,7 @@ export default function Contact() {
       />
 
       <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
-        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-accent uppercase">06 / Contact</p>
+        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-accent uppercase">08 / Contact</p>
         <TextReveal
           as="h2"
           split="words"

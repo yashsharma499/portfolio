@@ -37,7 +37,7 @@ export default function Timeline() {
 
   return (
     <section ref={sectionRef} id="experience" className="relative mx-auto max-w-6xl px-6 py-28">
-      <SectionHeading index="05" eyebrow="Journey" title="Experience" />
+      <SectionHeading index="07" eyebrow="Journey" title="Experience" />
 
       <div className="relative pl-8 sm:pl-12">
         <div className="absolute top-0 bottom-0 left-2 w-px bg-border-soft sm:left-4" aria-hidden />

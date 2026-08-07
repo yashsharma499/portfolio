@@ -11,7 +11,7 @@ export default function Projects() {
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-6 py-28">
       <SectionHeading
-        index="02"
+        index="04"
         eyebrow="Personal Projects"
         title="Things I build after hours"
         description="Agents, RAG, realtime — the personal lab where the production ideas start."
