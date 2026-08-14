@@ -26,7 +26,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative z-10 border-t border-border-soft">
+    <footer className="glass-pane glass-soft relative z-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-1 sm:items-start">
           <span className="font-display text-sm font-semibold">{profile.name}</span>
@@ -46,7 +46,7 @@ export default function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                className="glass glass-btn flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:text-foreground"
               >
                 <Icon size={18} />
               </a>

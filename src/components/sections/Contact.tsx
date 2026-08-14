@@ -47,7 +47,7 @@ export default function Contact() {
             <a
               href={`mailto:${profile.email}`}
               data-cursor
-              className="group inline-flex h-16 items-center gap-3 rounded-full bg-primary px-10 text-lg font-medium text-white shadow-[0_10px_36px_rgba(124,58,237,0.32)] transition-shadow hover:shadow-[0_14px_52px_rgba(124,58,237,0.48)]"
+              className="glass-solid group inline-flex h-16 items-center gap-3 rounded-full bg-primary px-10 text-lg font-medium text-white transition-shadow"
             >
               {profile.email}
               <ArrowUpRight size={20} className="transition-transform group-hover:rotate-45" />
@@ -67,7 +67,7 @@ export default function Contact() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-border-soft text-muted-foreground transition-colors hover:border-accent hover:text-accent"
+                className="glass glass-btn flex h-12 w-12 items-center justify-center rounded-full text-muted-foreground hover:text-accent"
               >
                 <Icon size={18} />
               </a>

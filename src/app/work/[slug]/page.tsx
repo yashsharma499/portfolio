@@ -111,7 +111,7 @@ export default async function CaseStudyPage({
       {/* body */}
       <div className="mx-auto max-w-4xl px-6 pb-24">
         <Reveal>
-          <div className="mb-14 rounded-2xl border border-border-soft bg-surface p-6 sm:p-8">
+          <div className="glass mb-14 rounded-2xl p-6 sm:p-8">
             <h2 className="font-display mb-3 text-lg font-semibold">The problem</h2>
             <p className="text-muted-foreground leading-relaxed">{cs.problem}</p>
           </div>
@@ -127,7 +127,7 @@ export default async function CaseStudyPage({
             {cs.stack.map((s) => (
               <span
                 key={s}
-                className="rounded-full border border-border-soft bg-card px-3 py-1.5 font-mono text-xs text-muted-foreground"
+                className="glass-chip rounded-full px-3 py-1.5 font-mono text-xs text-muted-foreground"
               >
                 {s}
               </span>
@@ -146,7 +146,7 @@ export default async function CaseStudyPage({
                 <p className="font-display text-2xl font-semibold sm:text-3xl">{next.title}</p>
               </div>
               <span
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border-soft transition-transform duration-300 group-hover:translate-x-1"
+                className="glass flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1"
               >
                 <ArrowRight size={18} style={{ color: next.accent }} />
               </span>

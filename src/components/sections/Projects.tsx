@@ -31,7 +31,7 @@ export default function Projects() {
               <div className="mt-auto">
                 <div className="mb-4 flex flex-wrap gap-1.5">
                   {p.stack.map((s) => (
-                    <span key={s} className="rounded bg-surface px-2 py-0.5 font-mono text-[10px] text-subtle-foreground">
+                    <span key={s} className="glass-chip rounded px-2 py-0.5 font-mono text-[10px] text-subtle-foreground">
                       {s}
                     </span>
                   ))}
@@ -42,7 +42,7 @@ export default function Projects() {
                     target="_blank"
                     rel="noreferrer"
                     data-cursor
-                    className="inline-flex h-9 items-center gap-1.5 rounded-full border border-border-soft px-4 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                    className="glass glass-btn inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-xs text-muted-foreground hover:text-foreground"
                   >
                     <GithubIcon size={13} /> Code
                   </a>
@@ -52,8 +52,11 @@ export default function Projects() {
                       target="_blank"
                       rel="noreferrer"
                       data-cursor
-                      className="inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-xs font-medium text-white transition-shadow"
-                      style={{ background: p.accent, boxShadow: `0 0 18px ${p.accent}44` }}
+                      className="glass-solid inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-xs font-medium text-white transition-shadow"
+                      style={{
+                        backgroundColor: p.accent,
+                        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.45), 0 6px 20px ${p.accent}59`,
+                      }}
                     >
                       <ExternalLink size={13} /> Live
                     </a>

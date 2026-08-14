@@ -31,7 +31,7 @@ export default function VideoShowcase() {
       />
 
       <Reveal>
-        <div className="relative overflow-hidden rounded-3xl border border-border-soft bg-linear-to-br from-[#f5f2ff] via-white to-[#effcff] p-2 shadow-[0_20px_60px_rgba(124,58,237,0.14)]">
+        <div className="glass relative overflow-hidden rounded-3xl p-2 [--glass-shadow:0_24px_70px_rgba(124,58,237,0.18)]">
           <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#0d0b1f]">
             {playing ? (
               <video
@@ -69,7 +69,7 @@ export default function VideoShowcase() {
                   aria-hidden
                 />
 
-                <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-[0_0_50px_rgba(124,58,237,0.6)] transition-transform duration-300 group-hover:scale-110">
+                <span className="glass relative flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 [--glass-blur:14px] [--glass-shadow:0_0_50px_rgba(124,58,237,0.6)] [--glass-tint:rgba(255,255,255,0.55)]">
                   <span className="absolute inset-0 animate-ping rounded-full bg-white/40" aria-hidden />
                   <Play size={28} className="relative ml-1 fill-primary text-primary" />
                 </span>
@@ -91,7 +91,7 @@ export default function VideoShowcase() {
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {systems.map((s, i) => (
           <Reveal key={s.name} delay={i * 0.06}>
-            <div className="flex items-center gap-3 rounded-2xl border border-border-soft bg-card p-4">
+            <div className="glass glass-hover flex items-center gap-3 rounded-2xl p-4">
               <span
                 className="h-9 w-1.5 shrink-0 rounded-full"
                 style={{ background: s.color }}

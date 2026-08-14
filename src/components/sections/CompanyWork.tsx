@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Zap } from "lucide-react";
 import { caseStudies, companyIntro } from "@/data/company-work";
@@ -24,7 +24,7 @@ export default function CompanyWork() {
         {companyIntro.themes.map((t) => (
           <span
             key={t}
-            className="rounded-full border border-primary/30 bg-primary/8 px-4 py-1.5 font-mono text-[11px] text-muted-foreground"
+            className="glass glass-violet rounded-full px-4 py-1.5 font-mono text-[11px] text-muted-foreground"
           >
             {t}
           </span>
@@ -41,11 +41,18 @@ export default function CompanyWork() {
               onMouseLeave={() => setActive(null)}
               className="group relative block border-b border-border-soft py-8 transition-colors first:border-t"
             >
+              {/* a single glass lens that slides between rows on hover */}
               {active === i && (
                 <motion.div
                   layoutId="work-hover"
-                  className="absolute inset-0 -mx-4 rounded-2xl"
-                  style={{ background: `linear-gradient(90deg, ${cs.accent}14, transparent 70%)` }}
+                  className="glass absolute inset-0 -mx-4 rounded-2xl"
+                  style={
+                    {
+                      "--glass-tint": `${cs.accent}1a`,
+                      "--glass-hairline": `0 0 0 1px ${cs.accent}2e`,
+                      "--glass-blur": "16px",
+                    } as CSSProperties
+                  }
                   transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
                 />
               )}
@@ -66,7 +73,11 @@ export default function CompanyWork() {
                     <p className="mt-1 truncate text-sm text-muted-foreground">{cs.short}</p>
                     <span
                       className="mt-2.5 inline-flex items-start gap-2 rounded-lg px-3 py-1.5 text-xs font-medium"
-                      style={{ background: `${cs.accent}12`, color: cs.accent }}
+                      style={{
+                        background: `linear-gradient(150deg, ${cs.accent}1f, ${cs.accent}0a)`,
+                        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.55), 0 0 0 1px ${cs.accent}1f`,
+                        color: cs.accent,
+                      }}
                     >
                       <Zap size={13} className="mt-0.5 shrink-0" aria-hidden />
                       {cs.solution}
@@ -76,8 +87,15 @@ export default function CompanyWork() {
                 <div className="flex shrink-0 items-center gap-4">
                   <span className="hidden font-mono text-[11px] text-subtle-foreground md:inline">{cs.tag}</span>
                   <span
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft transition-all duration-300 group-hover:rotate-45 group-hover:border-transparent"
-                    style={{ background: active === i ? cs.accent : undefined }}
+                    className="glass flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 group-hover:rotate-45"
+                    style={
+                      active === i
+                        ? ({
+                            "--glass-tint": cs.accent,
+                            "--glass-hairline": `0 0 0 1px ${cs.accent}`,
+                          } as CSSProperties)
+                        : undefined
+                    }
                   >
                     <ArrowUpRight size={18} className={active === i ? "text-white" : "text-muted-foreground"} />
                   </span>

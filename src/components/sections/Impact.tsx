@@ -56,7 +56,7 @@ function Counter({
 
 export default function Impact() {
   return (
-    <section className="relative overflow-hidden border-y border-border-soft bg-linear-to-b from-white/70 to-surface/50">
+    <section className="glass-pane glass-soft relative overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6 py-16">
         <Reveal>
           <p className="mb-3 text-center font-mono text-xs tracking-[0.3em] text-accent uppercase">

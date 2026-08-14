@@ -93,7 +93,7 @@ export default function WorkflowCanvas({ workflow }: { workflow: Workflow }) {
   }, [nodes, edges]);
 
   return (
-    <div className="relative overflow-x-auto overflow-y-hidden rounded-2xl border border-border-soft bg-[#fbfaff]">
+    <div className="relative overflow-x-auto overflow-y-hidden rounded-2xl border border-white/55 bg-white/55 backdrop-blur-md">
       <div
         className="pointer-events-none absolute inset-0"
         style={{

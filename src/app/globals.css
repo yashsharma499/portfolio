@@ -16,6 +16,34 @@
   --accent-bright: #22d3ee;
   --glow-violet: rgba(124, 58, 237, 0.22);
   --glow-cyan: rgba(8, 145, 178, 0.14);
+
+  /* ---------- glass tokens ---------- */
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
+  --glass-tint: rgba(255, 255, 255, 0.44);
+  --glass-angle: 150deg;
+  /* directional light across the pane — bright at the top-left, falling off */
+  --glass-sheen: linear-gradient(
+    var(--glass-angle),
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.06) 42%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  /* 1px specular rim: lit edge, dark middle, faint violet refraction, lit again */
+  --glass-rim: linear-gradient(
+    var(--glass-angle),
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.34) 24%,
+    rgba(255, 255, 255, 0.04) 46%,
+    rgba(124, 58, 237, 0.14) 70%,
+    rgba(255, 255, 255, 0.78) 100%
+  );
+  --glass-hairline: 0 0 0 1px rgba(23, 16, 58, 0.05);
+  --glass-lip: inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(23, 16, 58, 0.07), 0 1px 3px rgba(23, 16, 58, 0.04);
+  --glass-shadow-lift: 0 18px 48px rgba(124, 58, 237, 0.16), 0 2px 8px rgba(23, 16, 58, 0.05);
 }
 
 @theme inline {
@@ -71,12 +99,157 @@ body {
   text-shadow: 0 2px 30px var(--glow-violet);
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(10px) saturate(1.3);
-  -webkit-backdrop-filter: blur(10px) saturate(1.3);
-  border: 1px solid rgba(23, 16, 58, 0.08);
-  box-shadow: 0 4px 24px rgba(23, 16, 58, 0.06);
+/* ============================================================
+   glassmorphism system
+
+   Every glass surface stacks four layers:
+     1. refraction — backdrop-filter blur + saturate on what's behind
+     2. tint       — translucent fill plus a directional light gradient
+     3. specular   — a 1px gradient rim (mask-composite) and an inner lip
+     4. depth      — ambient shadow + a dark hairline for edge definition
+
+   No `border` is used: the rim ::after occupies the full border box, so
+   glass can be swapped onto an element without changing its size.
+
+   Declared in `components` so Tailwind's `utilities` layer still wins —
+   otherwise `.glass absolute` would lose to the base `position: relative`.
+   ============================================================ */
+
+@layer components {
+  :is(.glass, .glass-card, .glass-pane, .glass-btn, .glass-chip) {
+    position: relative;
+    background-color: var(--glass-tint);
+    background-image: var(--glass-sheen);
+    /* Lightning CSS adds the -webkit- prefix from browserslist; writing it by
+       hand after the standard property makes it drop the unprefixed one. */
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    box-shadow: var(--glass-shadow), var(--glass-hairline), var(--glass-lip);
+  }
+
+  :is(.glass, .glass-card, .glass-pane, .glass-btn)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--glass-rim);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* density modifiers — must follow the base so the var overrides win */
+  .glass-soft {
+    --glass-tint: rgba(255, 255, 255, 0.24);
+    --glass-blur: 14px;
+    --glass-shadow: 0 4px 24px rgba(23, 16, 58, 0.05);
+  }
+
+  .glass-strong {
+    --glass-tint: rgba(255, 255, 255, 0.62);
+    --glass-blur: 28px;
+    --glass-saturate: 200%;
+  }
+
+  /* the floating nav thickens as the page scrolls under it */
+  .glass[data-scrolled="true"] {
+    --glass-tint: rgba(255, 255, 255, 0.7);
+    --glass-blur: 30px;
+    --glass-shadow: 0 12px 40px rgba(23, 16, 58, 0.1);
+  }
+
+  /* tinted glass — the pane picks up the accent instead of neutral white */
+  .glass-violet {
+    --glass-tint: rgba(237, 233, 254, 0.5);
+    --glass-hairline: 0 0 0 1px rgba(124, 58, 237, 0.18);
+    --glass-rim: linear-gradient(
+      var(--glass-angle),
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(196, 181, 253, 0.5) 30%,
+      rgba(124, 58, 237, 0.12) 55%,
+      rgba(167, 139, 250, 0.45) 78%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+  }
+
+  /* solid accent fill that still reads as a lit, liquid surface */
+  .glass-solid {
+    position: relative;
+    background-image: linear-gradient(
+      var(--glass-angle),
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.02) 45%,
+      rgba(0, 0, 0, 0.06) 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.08), 0 8px 28px rgba(124, 58, 237, 0.32);
+  }
+
+  .glass-solid:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.08), 0 12px 44px rgba(124, 58, 237, 0.45);
+  }
+
+  /* small inline pills sitting *on* glass — cheap blur, no rim */
+  .glass-chip {
+    --glass-blur: 6px;
+    --glass-tint: rgba(255, 255, 255, 0.45);
+    /* a no-op shadow — `none` inside a comma list would invalidate the whole rule */
+    --glass-shadow: 0 0 rgba(0, 0, 0, 0);
+    --glass-lip: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    --glass-hairline: 0 0 0 1px rgba(255, 255, 255, 0.45);
+  }
+
+  /* interactive glass — lifts and brightens on hover */
+  .glass-btn,
+  .glass-hover {
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .glass-btn:hover,
+  .glass-hover:hover {
+    --glass-tint: rgba(255, 255, 255, 0.66);
+    box-shadow: var(--glass-shadow-lift), var(--glass-hairline), var(--glass-lip);
+    transform: translateY(-2px);
+  }
+
+  .glass-btn:active {
+    transform: translateY(0);
+  }
+
+  /* keep content above the tint/rim layers */
+  :is(.glass, .glass-card, .glass-pane, .glass-btn) > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* fallback: paint an opaque frost when the backdrop can't be filtered */
+  @supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+    :is(.glass, .glass-card, .glass-pane, .glass-btn, .glass-chip, .spotlight-card) {
+      --glass-tint: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  /* accessibility + perf: drop the blur, keep the surface legible */
+  @media (prefers-reduced-transparency: reduce) {
+    :is(.glass, .glass-card, .glass-pane, .glass-btn, .glass-chip, .spotlight-card) {
+      --glass-tint: rgba(255, 255, 255, 0.94);
+      backdrop-filter: none;
+    }
+  }
+
+  /* blur is the expensive part — ease off on small screens */
+  @media (max-width: 640px) {
+    :root {
+      --glass-blur: 14px;
+    }
+    /* the modifiers set --glass-blur on the element, so clamp them explicitly */
+    .glass-strong,
+    .glass[data-scrolled="true"] {
+      --glass-blur: 18px;
+    }
+  }
 }
 
 /* ---------- ambient background blobs ---------- */
@@ -167,44 +340,71 @@ body {
   opacity: 0.025;
 }
 
-/* spotlight card — mouse-tracked glow border (light variant) */
-.spotlight-card {
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(23, 16, 58, 0.05);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
-}
+/* spotlight card — glass pane with a cursor-tracked specular highlight */
+@layer components {
+  .spotlight-card {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--glass-tint);
+    background-image: var(--glass-sheen);
+    /* Lightning CSS adds the -webkit- prefix from browserslist; writing it by
+       hand after the standard property makes it drop the unprefixed one. */
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    box-shadow: var(--glass-shadow), var(--glass-hairline), var(--glass-lip);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  }
 
-.spotlight-card:hover {
-  box-shadow: 0 10px 32px rgba(124, 58, 237, 0.13);
-  transform: translateY(-2px);
-}
+  .spotlight-card:hover {
+    --glass-tint: rgba(255, 255, 255, 0.58);
+    box-shadow: var(--glass-shadow-lift), var(--glass-hairline), var(--glass-lip);
+    transform: translateY(-2px);
+  }
 
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  background: radial-gradient(
-    420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(124, 58, 237, 0.08),
-    transparent 55%
-  );
-}
+  /* layer 0 — the light the cursor drags across the surface */
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background:
+      radial-gradient(
+        280px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.5),
+        transparent 62%
+      ),
+      radial-gradient(
+        520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(124, 58, 237, 0.11),
+        transparent 60%
+      );
+  }
 
-.spotlight-card:hover::before {
-  opacity: 1;
-}
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
 
-.spotlight-card > * {
-  position: relative;
-  z-index: 1;
+  /* layer 2 — the specular rim */
+  .spotlight-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--glass-rim);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .spotlight-card > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 /* custom cursor */

@@ -20,7 +20,7 @@ export default function NotFound() {
         <Link
           href="/"
           data-cursor
-          className="inline-flex h-12 items-center rounded-full bg-primary px-7 font-medium text-white shadow-[0_8px_28px_rgba(124,58,237,0.3)]"
+          className="glass-solid inline-flex h-12 items-center rounded-full bg-primary px-7 font-medium text-white"
         >
           Back home
         </Link>

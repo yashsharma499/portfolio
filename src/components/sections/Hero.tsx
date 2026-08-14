@@ -31,7 +31,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.7, duration: 0.6 }}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/8 px-5 py-2"
+          className="glass glass-violet mb-8 inline-flex items-center gap-2 rounded-full px-5 py-2"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-50" />
@@ -81,7 +81,7 @@ export default function Hero() {
             <a
               href="#work"
               data-cursor
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-medium text-white shadow-[0_8px_28px_rgba(124,58,237,0.32)] transition-shadow hover:shadow-[0_10px_40px_rgba(124,58,237,0.45)]"
+              className="glass-solid inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-medium text-white transition-shadow"
             >
               See my work <ArrowDown size={16} />
             </a>
@@ -90,7 +90,7 @@ export default function Hero() {
             <a
               href="#contact"
               data-cursor
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-border-soft bg-card px-7 font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+              className="glass glass-btn inline-flex h-12 items-center gap-2 rounded-full px-7 font-medium text-foreground hover:text-primary"
             >
               Get in touch
             </a>
@@ -102,7 +102,7 @@ export default function Hero() {
               rel="noreferrer"
               aria-label="GitHub"
               data-cursor
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border-soft bg-card text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              className="glass glass-btn inline-flex h-12 w-12 items-center justify-center rounded-full text-muted-foreground hover:text-primary"
             >
               <GithubIcon size={18} />
             </a>
@@ -118,7 +118,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
         aria-hidden
       >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-border-soft bg-card/60 p-1.5">
+        <div className="glass flex h-10 w-6 items-start justify-center rounded-full p-1.5">
           <motion.div
             animate={{ y: [0, 14, 0] }}
             transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}

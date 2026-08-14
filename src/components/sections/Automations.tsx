@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Workflow as WorkflowIcon, Radio, Boxes } from "lucide-react";
 import { workflows, automationStats, systemsOrder } from "@/data/workflows";
@@ -26,7 +26,7 @@ export default function Automations() {
   return (
     <section
       id="automations"
-      className="relative overflow-hidden border-y border-border-soft bg-linear-to-b from-white/60 via-[#fbfaff] to-white/60"
+      className="relative overflow-hidden border-y border-white/40 bg-linear-to-b from-white/55 via-white/15 to-white/55"
     >
       <div className="relative mx-auto max-w-6xl px-6 py-28">
         <SectionHeading
@@ -40,7 +40,7 @@ export default function Automations() {
         <Reveal>
           <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {automationStats.map((s) => (
-              <div key={s.label} className="rounded-2xl border border-border-soft bg-card p-4 text-center">
+              <div key={s.label} className="glass glass-hover rounded-2xl p-4 text-center">
                 <p className="text-gradient font-display text-2xl font-bold tabular-nums sm:text-3xl">
                   {s.value}
                 </p>
@@ -62,10 +62,10 @@ export default function Automations() {
                   onClick={() => pick(s)}
                   data-cursor
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300",
+                    "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300",
                     active
-                      ? "border-transparent bg-primary text-white shadow-[0_6px_20px_rgba(124,58,237,0.3)]"
-                      : "border-border-soft bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                      ? "glass-solid bg-primary text-white"
+                      : "glass glass-btn text-muted-foreground hover:text-foreground"
                   )}
                 >
                   <Boxes size={14} />
@@ -86,8 +86,16 @@ export default function Automations() {
             return (
               <Reveal key={wf.id} delay={Math.min(i * 0.04, 0.2)}>
                 <div
-                  className="overflow-hidden rounded-2xl border bg-card transition-colors duration-300"
-                  style={{ borderColor: open ? `${wf.accent}55` : undefined }}
+                  className="glass overflow-hidden rounded-2xl transition-all duration-300"
+                  style={
+                    open
+                      ? ({
+                          // the open pane lights up: accent hairline + denser frost
+                          "--glass-hairline": `0 0 0 1px ${wf.accent}4d`,
+                          "--glass-tint": "rgba(255, 255, 255, 0.6)",
+                        } as CSSProperties)
+                      : undefined
+                  }
                 >
                   <button
                     onClick={() => setOpenId(open ? "" : wf.id)}

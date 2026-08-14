@@ -20,7 +20,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative overflow-hidden border-y border-border-soft bg-linear-to-br from-[#f5f2ff] via-[#fdf4ff] to-[#effcff]"
+      className="relative overflow-hidden border-y border-white/40 bg-linear-to-br from-violet-100/45 via-fuchsia-50/25 to-cyan-100/40"
     >
       <div className="relative mx-auto max-w-6xl px-6 py-28">
         <SectionHeading
@@ -59,8 +59,9 @@ export default function Skills() {
                         key={item}
                         className="rounded-full border px-3 py-1 font-mono text-xs transition-colors"
                         style={{
-                          borderColor: `${color}2e`,
-                          background: `${color}0a`,
+                          borderColor: `${color}33`,
+                          background: `linear-gradient(150deg, ${color}1f, ${color}08)`,
+                          boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.6)",
                           color: "var(--muted-foreground)",
                         }}
                       >
