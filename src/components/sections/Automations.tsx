@@ -28,7 +28,7 @@ export default function Automations() {
       id="automations"
       className="relative overflow-hidden border-y border-white/40 bg-linear-to-b from-white/55 via-white/15 to-white/55"
     >
-      <div className="relative mx-auto max-w-6xl px-6 py-28">
+      <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
         <SectionHeading
           index="03"
           eyebrow="Automation Layer"
@@ -100,9 +100,9 @@ export default function Automations() {
                   <button
                     onClick={() => setOpenId(open ? "" : wf.id)}
                     data-cursor
-                    className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                    className="flex w-full items-center justify-between gap-3 p-4 text-left sm:gap-4 sm:p-5"
                   >
-                    <div className="flex min-w-0 items-start gap-4">
+                    <div className="flex min-w-0 items-start gap-3 sm:gap-4">
                       <span
                         className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                         style={{ background: `${wf.accent}15`, color: wf.accent }}
@@ -121,7 +121,9 @@ export default function Automations() {
                         <p className="mt-1 text-sm text-muted-foreground">{wf.description}</p>
                       </div>
                     </div>
-                    <span className="shrink-0 font-mono text-[10px] text-subtle-foreground">
+                    {/* the count would eat ~40% of the title's width at 320px,
+                        and the graph below already shows every node */}
+                    <span className="hidden shrink-0 font-mono text-[10px] text-subtle-foreground sm:block">
                       {wf.nodeCount} nodes
                     </span>
                   </button>

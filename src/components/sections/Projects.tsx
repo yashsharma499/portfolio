@@ -9,7 +9,7 @@ import Reveal from "@/components/Reveal";
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <SectionHeading
         index="04"
         eyebrow="Personal Projects"

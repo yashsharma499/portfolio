@@ -8,6 +8,7 @@ import Projects from "@/components/sections/Projects";
 import About from "@/components/sections/About";
 import Skills from "@/components/sections/Skills";
 import Timeline from "@/components/sections/Timeline";
+import Services from "@/components/sections/Services";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <About />
       <Skills />
       <Timeline />
+      <Services />
       <Contact />
     </>
   );

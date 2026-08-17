@@ -56,7 +56,7 @@ function Counter({
 
 export default function Impact() {
   return (
-    <section className="glass-pane glass-soft relative overflow-hidden">
+    <section className="glass-pane glass-soft glass-flat relative overflow-hidden [--glass-tint:rgba(255,255,255,0.5)]">
       <div className="relative mx-auto max-w-6xl px-6 py-16">
         <Reveal>
           <p className="mb-3 text-center font-mono text-xs tracking-[0.3em] text-accent uppercase">
@@ -70,10 +70,11 @@ export default function Impact() {
           {profile.delivered.map((d, i) => (
             <Reveal key={d.label} delay={Math.min(i * 0.05, 0.25)}>
               <div className="text-center">
-                <p className="text-gradient font-display text-3xl font-bold sm:text-4xl">
+                {/* "₹11.5 Cr" at text-3xl is wider than a 320px two-up column */}
+                <p className="text-gradient font-display text-2xl font-bold sm:text-3xl md:text-4xl">
                   <Counter value={d.value} prefix={d.prefix} suffix={d.suffix} decimals={d.decimals} />
                 </p>
-                <p className="mx-auto mt-2 max-w-36 text-xs leading-relaxed text-muted-foreground">
+                <p className="mx-auto mt-2 max-w-full text-xs leading-relaxed text-muted-foreground sm:max-w-36">
                   {d.label}
                 </p>
               </div>

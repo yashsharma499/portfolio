@@ -46,7 +46,7 @@ function Portrait() {
 
 export default function About() {
   return (
-    <section id="about" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="about" className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <SectionHeading
         index="05"
         eyebrow="About"
@@ -58,7 +58,7 @@ export default function About() {
         <div className="space-y-5">
           {profile.about.map((p, i) => (
             <Reveal key={i} delay={i * 0.08}>
-              <p className="text-lg leading-relaxed text-muted-foreground">{p}</p>
+              <p className="leading-relaxed text-muted-foreground sm:text-lg">{p}</p>
             </Reveal>
           ))}
 

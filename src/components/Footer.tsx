@@ -26,7 +26,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="glass-pane glass-soft relative z-10">
+    <footer className="glass-pane glass-soft glass-flat relative z-10 [--glass-tint:rgba(255,255,255,0.45)]">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-1 sm:items-start">
           <span className="font-display text-sm font-semibold">{profile.name}</span>
@@ -53,7 +53,7 @@ export default function Footer() {
             </MagneticButton>
           ))}
         </div>
-        <p className="font-mono text-[11px] text-subtle-foreground">
+        <p className="text-center font-mono text-[11px] text-subtle-foreground">
           © {new Date().getFullYear()} — built with Next.js, GSAP & too much coffee
         </p>
       </div>

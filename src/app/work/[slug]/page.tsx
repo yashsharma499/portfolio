@@ -30,8 +30,8 @@ function Block({ label, items, accent }: { label: string; items: string[]; accen
   if (!items.length) return null;
   return (
     <Reveal>
-      <div className="mb-14">
-        <h2 className="font-display mb-6 text-2xl font-semibold tracking-tight sm:text-3xl">
+      <div className="mb-10 sm:mb-14">
+        <h2 className="font-display mb-5 text-xl font-semibold tracking-tight sm:mb-6 sm:text-3xl">
           <span className="mr-3 font-mono text-sm align-middle" style={{ color: accent }}>
             //
           </span>
@@ -64,7 +64,7 @@ export default async function CaseStudyPage({
   return (
     <article className="relative">
       {/* hero */}
-      <header className="relative overflow-hidden px-6 pt-40 pb-20">
+      <header className="relative overflow-hidden px-6 pt-32 pb-14 sm:pt-40 sm:pb-20">
         <div
           className="pointer-events-none absolute -top-40 left-1/2 h-120 w-160 -translate-x-1/2 rounded-full opacity-10 blur-[110px]"
           style={{ background: cs.accent }}
@@ -84,14 +84,14 @@ export default async function CaseStudyPage({
             as="h1"
             split="words"
             immediate
-            className="font-display text-4xl font-bold tracking-tight sm:text-6xl"
+            className="font-display text-3xl font-bold tracking-tight sm:text-6xl"
           >
             {cs.title}
           </TextReveal>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{cs.summary}</p>
+          <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">{cs.summary}</p>
 
           {/* stat strip */}
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-4 sm:grid-cols-4">
             {cs.stats.map((s) => (
               <Reveal key={s.label}>
                 <SpotlightCard className="p-4 text-center">
@@ -138,15 +138,15 @@ export default async function CaseStudyPage({
         {/* next case study */}
         <Reveal>
           <Link href={`/work/${next.slug}`} data-cursor="view" className="group block">
-            <SpotlightCard className="flex items-center justify-between p-8">
-              <div>
+            <SpotlightCard className="flex items-center justify-between gap-4 p-6 sm:p-8">
+              <div className="min-w-0">
                 <p className="mb-1 font-mono text-xs text-subtle-foreground uppercase tracking-wider">
                   next case study
                 </p>
-                <p className="font-display text-2xl font-semibold sm:text-3xl">{next.title}</p>
+                <p className="font-display text-xl font-semibold sm:text-3xl">{next.title}</p>
               </div>
               <span
-                className="glass flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1"
+                className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1 sm:h-12 sm:w-12"
               >
                 <ArrowRight size={18} style={{ color: next.accent }} />
               </span>

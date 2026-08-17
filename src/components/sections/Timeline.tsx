@@ -36,7 +36,7 @@ export default function Timeline() {
   );
 
   return (
-    <section ref={sectionRef} id="experience" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section ref={sectionRef} id="experience" className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <SectionHeading index="07" eyebrow="Journey" title="Experience" />
 
       <div className="relative pl-8 sm:pl-12">

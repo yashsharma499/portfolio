@@ -18,7 +18,9 @@
   --glow-cyan: rgba(8, 145, 178, 0.14);
 
   /* ---------- glass tokens ---------- */
-  --glass-blur: 20px;
+  /* backdrop-filter cost scales with radius x area; 16px is the point where
+     the frost still reads but the scroll path stays cheap */
+  --glass-blur: 16px;
   --glass-saturate: 180%;
   --glass-tint: rgba(255, 255, 255, 0.44);
   --glass-angle: 150deg;
@@ -66,8 +68,14 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* promote the marquee so its 40s loop is pure compositing — the text-stroke
+   glyphs inside are expensive to rasterise, and this rasters them once */
+.animate-marquee {
+  will-change: transform;
 }
 
 html {
@@ -191,6 +199,59 @@ body {
       inset 0 -1px 2px rgba(0, 0, 0, 0.08), 0 12px 44px rgba(124, 58, 237, 0.45);
   }
 
+  /* Tint + rim + lip, but NO backdrop-filter.
+     Use wherever the blur can't actually be seen or can't be afforded:
+       - a frame whose child is opaque (only the edge ring shows)
+       - full-bleed bands, where cost scales with their huge area
+       - anything whose position animates, since moving a backdrop-filtered
+         element forces a re-blur on every frame of the animation
+     Visually near-identical against this soft pastel backdrop. */
+  .glass-flat {
+    backdrop-filter: none;
+  }
+
+  /* ---------- form controls ---------- */
+  .field {
+    width: 100%;
+    border-radius: 0.875rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 1px rgba(23, 16, 58, 0.07),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+
+  .field::placeholder {
+    color: var(--subtle-foreground);
+  }
+
+  .field:focus-visible {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.5),
+      0 0 0 4px rgba(124, 58, 237, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .field[aria-invalid="true"] {
+    box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* an accent rule that fills left-to-right when its card is hovered */
+  .flow-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .flow-rule,
+  .group:focus-within .flow-rule {
+    transform: scaleX(1);
+  }
+
   /* small inline pills sitting *on* glass — cheap blur, no rim */
   .glass-chip {
     --glass-blur: 6px;
@@ -252,11 +313,19 @@ body {
   }
 }
 
-/* ---------- ambient background blobs ---------- */
+/* ---------- ambient background blobs ----------
+
+   Deliberately NOT using `filter: blur()`. A multi-stop radial gradient is
+   already a smooth falloff, so the blur was ~redundant visually but cost a
+   full-screen shader pass every frame — and because these sit behind every
+   `backdrop-filter` surface, that pass was re-run on each glass element too.
+
+   Keyframes are translate-only (no `scale`) so the layers stay composited:
+   scaling a promoted layer forces a re-raster every frame.
+   ------------------------------------------------ */
 .blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
   will-change: transform;
 }
 
@@ -265,7 +334,12 @@ body {
   left: -5%;
   width: 46vw;
   height: 46vw;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.5), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.44) 0%,
+    rgba(167, 139, 250, 0.16) 38%,
+    transparent 70%
+  );
   animation: float-a 26s ease-in-out infinite;
 }
 
@@ -274,7 +348,12 @@ body {
   right: -12%;
   width: 42vw;
   height: 42vw;
-  background: radial-gradient(circle, rgba(103, 232, 249, 0.45), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(103, 232, 249, 0.4) 0%,
+    rgba(103, 232, 249, 0.14) 38%,
+    transparent 70%
+  );
   animation: float-b 32s ease-in-out infinite;
 }
 
@@ -283,7 +362,12 @@ body {
   left: 12%;
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle, rgba(251, 207, 232, 0.5), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(251, 207, 232, 0.44) 0%,
+    rgba(251, 207, 232, 0.16) 38%,
+    transparent 70%
+  );
   animation: float-c 29s ease-in-out infinite;
 }
 
@@ -292,23 +376,73 @@ body {
   right: 18%;
   width: 34vw;
   height: 34vw;
-  background: radial-gradient(circle, rgba(196, 181, 253, 0.42), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(196, 181, 253, 0.38) 0%,
+    rgba(196, 181, 253, 0.13) 38%,
+    transparent 70%
+  );
   animation: float-a 35s ease-in-out infinite reverse;
 }
 
+/* deeper, more saturated blobs — these carry the weight so the pastel ones
+   read as highlights on top. Alpha stays low: the page is still a light
+   theme, and anything heavier muddies the glass sitting over it. */
+.blob-e {
+  top: 8%;
+  right: 6%;
+  width: 38vw;
+  height: 38vw;
+  background: radial-gradient(
+    circle,
+    rgba(79, 70, 229, 0.26) 0%,
+    rgba(79, 70, 229, 0.09) 40%,
+    transparent 72%
+  );
+  animation: float-c 38s ease-in-out infinite;
+}
+
+.blob-f {
+  bottom: 18%;
+  right: -6%;
+  width: 44vw;
+  height: 44vw;
+  background: radial-gradient(
+    circle,
+    rgba(13, 148, 136, 0.22) 0%,
+    rgba(13, 148, 136, 0.08) 40%,
+    transparent 72%
+  );
+  animation: float-b 42s ease-in-out infinite reverse;
+}
+
+.blob-g {
+  bottom: -8%;
+  left: -8%;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(
+    circle,
+    rgba(109, 40, 217, 0.24) 0%,
+    rgba(109, 40, 217, 0.08) 40%,
+    transparent 72%
+  );
+  animation: float-a 46s ease-in-out infinite;
+}
+
 @keyframes float-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(6vw, 5vh) scale(1.12); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(7vw, 6vh, 0); }
 }
 
 @keyframes float-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-7vw, 7vh) scale(1.08); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-8vw, 8vh, 0); }
 }
 
 @keyframes float-c {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(5vw, -6vh) scale(1.15); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(6vw, -7vh, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {

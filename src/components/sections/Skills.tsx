@@ -22,7 +22,7 @@ export default function Skills() {
       id="skills"
       className="relative overflow-hidden border-y border-white/40 bg-linear-to-br from-violet-100/45 via-fuchsia-50/25 to-cyan-100/40"
     >
-      <div className="relative mx-auto max-w-6xl px-6 py-28">
+      <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
         <SectionHeading
           index="06"
           eyebrow="Stack"
@@ -30,7 +30,9 @@ export default function Skills() {
           description="The AI layer is the differentiator — everything else exists to ship it reliably."
         />
 
-        <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* auto-rows-fr only from sm: in a single column it forces every card
+            to the height of the tallest, leaving huge dead space on phones */}
+        <div className="grid gap-4 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4">
           {skillGroups.map((g, i) => {
             const { icon: Icon, color } = meta[g.key] ?? meta.languages;
             return (

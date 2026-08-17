@@ -6,6 +6,7 @@ import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Blobs from "@/components/Blobs";
+import ScrollProgress from "@/components/ScrollProgress";
 import ConsoleEasterEgg from "@/components/ConsoleEasterEgg";
 import { profile } from "@/data/profile";
 
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <Blobs />
+        <ScrollProgress />
         <SmoothScroll>
           <Cursor />
           <ConsoleEasterEgg />

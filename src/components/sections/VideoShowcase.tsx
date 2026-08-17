@@ -22,7 +22,7 @@ export default function VideoShowcase() {
   };
 
   return (
-    <section id="demo" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="demo" className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <SectionHeading
         index="02"
         eyebrow="Live Walkthrough"
@@ -31,7 +31,7 @@ export default function VideoShowcase() {
       />
 
       <Reveal>
-        <div className="glass relative overflow-hidden rounded-3xl p-2 [--glass-shadow:0_24px_70px_rgba(124,58,237,0.18)]">
+        <div className="glass glass-flat relative overflow-hidden rounded-3xl p-2 [--glass-shadow:0_24px_70px_rgba(124,58,237,0.18)] [--glass-tint:rgba(255,255,255,0.6)]">
           <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#0d0b1f]">
             {playing ? (
               <video
@@ -48,7 +48,7 @@ export default function VideoShowcase() {
                 onClick={start}
                 data-cursor
                 aria-label="Play system overview video"
-                className="group absolute inset-0 flex flex-col items-center justify-center gap-6"
+                className="group absolute inset-0 flex flex-col items-center justify-center gap-3 sm:gap-6"
               >
                 {/* animated ambient poster */}
                 <span
@@ -69,16 +69,19 @@ export default function VideoShowcase() {
                   aria-hidden
                 />
 
-                <span className="glass relative flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 [--glass-blur:14px] [--glass-shadow:0_0_50px_rgba(124,58,237,0.6)] [--glass-tint:rgba(255,255,255,0.55)]">
+                {/* a 16:9 box is only ~153px tall at 320px wide, so the button
+                    and caption have to shrink or they overflow the poster */}
+                <span className="glass relative flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20 [--glass-blur:14px] [--glass-shadow:0_0_50px_rgba(124,58,237,0.6)] [--glass-tint:rgba(255,255,255,0.55)]">
                   <span className="absolute inset-0 animate-ping rounded-full bg-white/40" aria-hidden />
-                  <Play size={28} className="relative ml-1 fill-primary text-primary" />
+                  <Play size={22} className="relative ml-0.5 fill-primary text-primary sm:hidden" />
+                  <Play size={28} className="relative ml-1 hidden fill-primary text-primary sm:block" />
                 </span>
 
-                <span className="relative text-center">
-                  <span className="block font-display text-2xl font-bold text-white sm:text-3xl">
+                <span className="relative px-4 text-center">
+                  <span className="block font-display text-lg font-bold text-white sm:text-2xl md:text-3xl">
                     System Overview
                   </span>
-                  <span className="mt-2 block font-mono text-xs tracking-[0.25em] text-white/70 uppercase">
+                  <span className="mt-1 block font-mono text-[10px] tracking-[0.2em] text-white/70 uppercase sm:mt-2 sm:text-xs sm:tracking-[0.25em]">
                     Hub · CPS · Finance
                   </span>
                 </span>

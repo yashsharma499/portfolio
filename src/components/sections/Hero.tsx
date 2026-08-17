@@ -15,12 +15,21 @@ const MeshGradient = dynamic(
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6">
+    // min-h-svh, not dvh: on mobile, dvh grows as the URL bar hides mid-scroll,
+    // which resizes the hero, reflows everything below it and invalidates the
+    // cached ScrollTrigger positions. svh is stable for the whole scroll.
+    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6">
       {/* soft pastel shader background */}
       <div className="absolute inset-0 opacity-70" aria-hidden>
+        {/* The shader defaults to rendering up to 1920*1080*4 px per frame and
+            supersamples on retina. It's a soft blur — detail is invisible, so
+            cap it and let CSS upscale. Keeps GPU free for scroll compositing.
+            (The library already pauses its RAF once the hero leaves view.) */}
         <MeshGradient
           colors={["#fafaff", "#ede9fe", "#c7d2fe", "#cffafe"]}
           speed={0.18}
+          minPixelRatio={1}
+          maxPixelCount={1280 * 720}
           style={{ width: "100%", height: "100%" }}
         />
         <div className="absolute inset-0 bg-linear-to-b from-background/30 via-transparent to-background" />
@@ -31,13 +40,14 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.7, duration: 0.6 }}
-          className="glass glass-violet mb-8 inline-flex items-center gap-2 rounded-full px-5 py-2"
+          className="glass glass-violet mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-50" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
           </span>
-          <span className="font-mono text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+          {/* 24 chars of tracked-out mono overflows a 320px pill at text-xs */}
+          <span className="font-mono text-[10px] font-semibold tracking-[0.15em] text-primary uppercase sm:text-xs sm:tracking-[0.2em]">
             {profile.role}
           </span>
         </motion.div>

@@ -12,7 +12,7 @@ export default function CompanyWork() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="work" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="work" className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <SectionHeading
         index="01"
         eyebrow="Selected Work"
@@ -20,11 +20,14 @@ export default function CompanyWork() {
         description={`${companyIntro.context}`}
       />
 
-      <Reveal className="mb-12 flex flex-wrap gap-3">
+      {/* These are ~100-char sentences, not tags — they wrap to several lines
+          at every width, and a wrapped `rounded-full` reads as a lopsided
+          ellipse. A fixed corner radius holds up at any line count. */}
+      <Reveal className="mb-12 flex flex-wrap gap-2 sm:gap-3">
         {companyIntro.themes.map((t) => (
           <span
             key={t}
-            className="glass glass-violet rounded-full px-4 py-1.5 font-mono text-[11px] text-muted-foreground"
+            className="glass glass-violet rounded-2xl px-4 py-2 font-mono text-[11px] leading-relaxed text-muted-foreground"
           >
             {t}
           </span>
@@ -39,25 +42,24 @@ export default function CompanyWork() {
               data-cursor="view"
               onMouseEnter={() => setActive(i)}
               onMouseLeave={() => setActive(null)}
-              className="group relative block border-b border-border-soft py-8 transition-colors first:border-t"
+              className="group relative block border-b border-border-soft py-6 transition-colors first:border-t sm:py-8"
             >
               {/* a single glass lens that slides between rows on hover */}
               {active === i && (
                 <motion.div
                   layoutId="work-hover"
-                  className="glass absolute inset-0 -mx-4 rounded-2xl"
+                  className="glass glass-flat absolute inset-0 -mx-4 rounded-2xl"
                   style={
                     {
-                      "--glass-tint": `${cs.accent}1a`,
+                      "--glass-tint": `${cs.accent}1f`,
                       "--glass-hairline": `0 0 0 1px ${cs.accent}2e`,
-                      "--glass-blur": "16px",
                     } as CSSProperties
                   }
                   transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
                 />
               )}
-              <div className="relative flex items-center justify-between gap-6">
-                <div className="flex min-w-0 items-baseline gap-4 sm:gap-8">
+              <div className="relative flex items-center justify-between gap-3 sm:gap-6">
+                <div className="flex min-w-0 items-baseline gap-3 sm:gap-8">
                   <span className="font-mono text-xs text-subtle-foreground tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -70,7 +72,8 @@ export default function CompanyWork() {
                         </span>
                       )}
                     </h3>
-                    <p className="mt-1 truncate text-sm text-muted-foreground">{cs.short}</p>
+                    {/* truncate left only ~25 of 55 chars visible at 320px */}
+                    <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{cs.short}</p>
                     <span
                       className="mt-2.5 inline-flex items-start gap-2 rounded-lg px-3 py-1.5 text-xs font-medium"
                       style={{
@@ -87,7 +90,7 @@ export default function CompanyWork() {
                 <div className="flex shrink-0 items-center gap-4">
                   <span className="hidden font-mono text-[11px] text-subtle-foreground md:inline">{cs.tag}</span>
                   <span
-                    className="glass flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 group-hover:rotate-45"
+                    className="glass flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:rotate-45 sm:h-11 sm:w-11"
                     style={
                       active === i
                         ? ({
