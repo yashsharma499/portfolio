@@ -19,8 +19,9 @@ export const experience: ExperienceItem[] = [
     points: [
       "Designed and shipped the company's complete in-house ERP ecosystem — 8 production systems across procurement, finance, HR, labour and analytics.",
       "Consolidated three database projects into one platform with single sign-on, 14 roles and one audit trail — now used daily by 75 employees across 44 project sites.",
-      "Built a WhatsApp-first automation spine: approvals, task dispatch and reminders over chat in English and Hindi.",
+      "Built a WhatsApp-first automation spine — approvals, task dispatch and reminders over chat in English and Hindi — running on Plumbline, a self-hosted WhatsApp gateway I built on Baileys behind a serverless proxy.",
       "Systems now govern ₹11.5 Cr of procurement and ₹1.96 Cr of disbursed payments.",
+      "Extended AI beyond the ERP: computer-vision BOQ takeoff from 2D plans (YOLOv8 + OCR), an AI sales-call analyzer (Whisper + sentiment), and the company website's SEO/GEO overhaul with automated Meta Ads lead scoring.",
     ],
   },
   {

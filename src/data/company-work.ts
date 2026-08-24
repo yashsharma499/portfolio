@@ -21,7 +21,7 @@ export const companyIntro = {
   company: "Hagerstone International Pvt. Ltd.",
   role: "Full-Stack & AI Engineer",
   context:
-    "An interior design & turnkey build firm running 44 project sites across India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine.",
+    "An interior design & turnkey build firm running 44 project sites across India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine running on a self-hosted gateway I built — plus AI tooling for quantity takeoff, sales-call analysis and marketing.",
   themes: [
     "WhatsApp as the company's operating system — approvals, dispatch and reminders over chat, in English and Hindi",
     "AI proposes, a named human disposes — an LLM never releases money",
@@ -256,6 +256,7 @@ export const caseStudies: CaseStudy[] = [
       "Client quotation PDF generation with an approve/reject audit trail.",
       "Approval auto-creates nine work stages with SLA-based colour escalation, and material needs raise a purchase requisition directly into the procurement system with one click.",
       "Beyond estimation: tender tracking with per-tender detail pages, project budget sheets, assembly definitions, material/rate masters and a verification console — the whole facade vertical, not just costing.",
+      "Tender pre-qualification (PQ) form-filling automation shipped as a companion Python service.",
     ],
     architecture: [
       "Lives in its own schema on the shared platform database; AI calls go through a server-side proxy.",
@@ -301,5 +302,141 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ["Python", "FastAPI", "httpx", "Supabase", "React", "Vite", "Docker", "Google Places API"],
     accent: "#0d9488",
+  },
+  {
+    slug: "plumbline-whatsapp-gateway",
+    title: "Plumbline — WhatsApp Gateway",
+    short: "Self-hosted WhatsApp gateway powering the automation spine",
+    tag: "Infrastructure · Messaging",
+    solution: "Replaces the paid third-party WhatsApp vendor with a self-hosted gateway the company owns end-to-end",
+    summary:
+      "The company's WhatsApp automation ran on a paid third-party API. Plumbline replaces it: a self-hosted Baileys-based gateway with live QR pairing, session management, and a serverless proxy console — the messaging backbone behind approvals, dispatch and reminders.",
+    stats: [
+      { value: "₹0", label: "per-message vendor fees" },
+      { value: "0", label: "secrets exposed to the browser" },
+      { value: "1", label: "serverless proxy guarding the key" },
+      { value: "QR", label: "pairing — a session in one scan" },
+    ],
+    problem:
+      "Every approval, reminder and dispatch flowed through a paid per-message WhatsApp vendor — recurring cost, rate limits, and a dependency the company didn't control.",
+    built: [
+      "Self-hosted gateway on Baileys with live QR pairing, session CRUD and health monitoring.",
+      "A single-file, no-build dashboard console for managing sessions — deployable anywhere.",
+      "Serverless proxy (/api/gw) that injects the gateway key server-side, so the browser never holds a secret.",
+    ],
+    architecture: [
+      "Vercel serverless functions front the gateway; the dashboard talks only to the proxy.",
+      "Drop-in replacement design: existing n8n workflows and system webhooks keep their contracts unchanged.",
+    ],
+    ai: [],
+    impact: [
+      "The WhatsApp automation spine — approvals, reminders, dispatch across every system — runs on infrastructure the company owns.",
+      "Recurring vendor fees eliminated; internal automation is no longer metered per message.",
+    ],
+    stack: ["Node.js", "Baileys", "Vercel Serverless", "JavaScript", "WhatsApp"],
+    accent: "#16a34a",
+  },
+  {
+    slug: "boq-items-agent",
+    title: "BOQ Items Agent",
+    short: "Computer vision that reads 2D plans into quantities",
+    tag: "AI · Computer Vision",
+    solution: "Turns 2D architectural plans into structured, auditable quantity takeoffs — no manual measuring",
+    summary:
+      "An AI quantity-takeoff pipeline: YOLOv8 segmentation and Tesseract OCR read 2D architectural plans, auto-calibrate scale from the plan's own dimension annotations, and measure walls into structured BOQ quantities — every number carrying an audit trail.",
+    stats: [
+      { value: "2D → BOQ", label: "plans to structured quantities" },
+      { value: "auto", label: "scale calibration from plan annotations" },
+      { value: "100%", label: "computed quantities with audit trails" },
+      { value: "custom", label: "YOLOv8 training pipeline included" },
+    ],
+    problem:
+      "Quantity takeoff from 2D plans is slow, manual and unauditable — an estimator with a scale rule, re-measuring what the drawing already says.",
+    built: [
+      "Detection and reading: YOLOv8 segmentation for plan elements, Tesseract OCR for dimension annotations.",
+      "Automatic scale calibration from the plan's own dimension text — no manual scale entry.",
+      "Flood-fill wall masking and skeletonization-based measurement to compute lengths and areas.",
+      "Debug overlays and per-quantity audit trails, plus a companion tool exporting plans into structured Excel BOQs.",
+      "Model training scripts so the detector keeps improving on the company's own drawing styles.",
+    ],
+    architecture: [
+      "Python pipeline: OpenCV preprocessing → YOLOv8 inference → OCR → geometric measurement → structured output.",
+    ],
+    ai: [
+      "Custom-trained YOLOv8 segmentation rather than a generic model — tuned to architectural drawing conventions.",
+      "Every extracted quantity is explainable: overlays show exactly which pixels produced which number.",
+    ],
+    impact: [
+      "Takeoffs that took an estimator hours become minutes, with quantities that can be audited line by line.",
+    ],
+    stack: ["Python", "YOLOv8", "OpenCV", "Tesseract OCR"],
+    accent: "#ea580c",
+  },
+  {
+    slug: "sales-call-agent",
+    title: "Sales Call Agent",
+    short: "Every sales call transcribed, scored and reported",
+    tag: "AI · Audio Intelligence",
+    solution: "Turns raw call recordings into engagement-scored transcripts and reports sales leadership can act on",
+    summary:
+      "An audio-intelligence pipeline for sales calls: Whisper transcription with speaker diarization, per-speaker sentiment and engagement scoring, and auto-generated PDF + JSON reports — built for the interior design sales context.",
+    stats: [
+      { value: "2", label: "Whisper backends — local & API" },
+      { value: "per-speaker", label: "sentiment & engagement scoring" },
+      { value: "PDF + JSON", label: "report formats generated" },
+    ],
+    problem:
+      "Sales calls happened and vanished — no transcript, no record of objections, no way to coach reps or compare across the pipeline.",
+    built: [
+      "MP3 ingestion → Whisper transcription with a dual backend: local faster-whisper for cost, OpenAI API for accuracy.",
+      "Speaker diarization with role assignment, so the report knows who was selling and who was buying.",
+      "Sentiment analysis (Transformers) and engagement metrics computed per speaker and per call.",
+      "ReportLab-generated PDF reports with the structured JSON embedded for downstream systems.",
+    ],
+    architecture: [
+      "Python pipeline, runnable fully offline on the local Whisper path — recordings never have to leave the machine.",
+    ],
+    ai: [
+      "Cost-routed transcription: free local model by default, API model when fidelity matters — the same cost-engineering rule as the ERP.",
+    ],
+    impact: [
+      "Sales leadership reviews a call from a two-page report instead of an hour of audio.",
+    ],
+    stack: ["Python", "Whisper", "Transformers", "ReportLab"],
+    accent: "#db2777",
+  },
+  {
+    slug: "marketing-engine",
+    title: "Marketing Engine — ERP, SEO & GEO",
+    short: "Marketing operations, lead automation and AI-search visibility",
+    tag: "Marketing · Growth",
+    solution: "One pipeline from Meta ad click to scored lead in the CRM — and a website tuned for both Google and AI search",
+    summary:
+      "The company's marketing operation as software: a Next.js marketing ERP, Meta Ads lead automation that scores and acknowledges every lead within a minute, and an SEO + GEO (Generative Engine Optimization) overhaul of hagerstone.com backed by a content pipeline.",
+    stats: [
+      { value: "1 min", label: "ad click → scored lead in CRM" },
+      { value: "2", label: "Meta campaigns automated end-to-end" },
+      { value: "GEO", label: "audit & fixes for AI-search visibility" },
+    ],
+    problem:
+      "Leads from Meta campaigns landed in spreadsheets and waited for a human; the website ranked on habit, not strategy — and was invisible to AI search engines.",
+    built: [
+      "Marketing ERP on Next.js with Supabase auth — campaigns, leads and follow-ups in one governed system instead of sheets.",
+      "Meta Ads lead automation: polls campaign sheets every minute, deduplicates against the database, AI-scores each lead and sends the WhatsApp acknowledgement before a human sees it.",
+      "SEO + GEO overhaul of the company website: a full audit with fix directives for AI-search (Generative Engine) visibility, plus a markdown blog pipeline for content marketing.",
+    ],
+    architecture: [
+      "Next.js + Supabase for the ERP; n8n for the lead pipeline; the corporate site rebuilt on Vite + React with structured content.",
+    ],
+    ai: [
+      "AI lead scoring on arrival — commercial fit judged before the first human touch.",
+      "GEO: optimizing for what LLM-powered search engines cite, not just what Google ranks.",
+    ],
+    impact: [
+      "Every ad lead is captured, deduplicated, scored and acknowledged within a minute of arriving.",
+      "Marketing runs from a governed system with the same audit discipline as finance and procurement.",
+    ],
+    stack: ["Next.js", "TypeScript", "Supabase", "n8n", "Meta Ads", "SEO / GEO"],
+    accent: "#d946ef",
   },
 ];

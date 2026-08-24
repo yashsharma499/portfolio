@@ -12,7 +12,7 @@ export const skillGroups: SkillGroup[] = [
     key: "ai",
     title: "AI Engineering",
     blurb: "Agentic systems that ship to production — grounded, governed, cost-routed.",
-    items: ["RAG", "LangGraph", "LangChain", "MCP", "Claude API", "OpenAI", "Groq", "Gemini", "Pinecone", "Prompt Engineering", "Multi-Agent Workflows"],
+    items: ["RAG", "LangGraph", "LangChain", "MCP", "Claude API", "OpenAI", "Groq", "Gemini", "Pinecone", "Prompt Engineering", "Multi-Agent Workflows", "Whisper", "YOLOv8 / OpenCV"],
     size: "lg",
   },
   {
@@ -40,7 +40,14 @@ export const skillGroups: SkillGroup[] = [
     key: "infra",
     title: "Infra & Automation",
     blurb: "Deploy, automate, observe.",
-    items: ["Vercel", "Railway", "Docker", "n8n", "Edge Functions", "GitHub", "Cloudinary", "WhatsApp APIs"],
+    items: ["Vercel", "Railway", "Docker", "n8n", "Edge Functions", "GitHub", "Cloudinary", "Self-hosted WhatsApp Gateway (Baileys)"],
+    size: "sm",
+  },
+  {
+    key: "marketing",
+    title: "Marketing & Design",
+    blurb: "Growth work with the same engineering discipline.",
+    items: ["SEO", "GEO (AI-Search Optimization)", "Meta Ads", "Marketing Analytics", "Content Strategy", "Figma", "Canva"],
     size: "sm",
   },
   {
@@ -56,4 +63,5 @@ export const marqueeSkills = [
   "Next.js", "React", "TypeScript", "Python", "FastAPI", "LangGraph", "RAG", "MCP",
   "PostgreSQL", "Supabase", "Claude", "OpenAI", "Node.js", "Tailwind", "GSAP",
   "n8n", "Docker", "WebSockets", "MongoDB", "Pinecone", "Expo",
+  "Whisper", "YOLOv8", "SEO", "GEO", "Meta Ads", "Figma",
 ];
