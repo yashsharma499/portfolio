@@ -273,6 +273,53 @@ export const caseStudies: CaseStudy[] = [
     accent: "#0284c7",
   },
   {
+    slug: "marketing-engine",
+    title: "Marketing & Sales ERP",
+    short: "The sales CRM — every lead, deal and contact in one scored, traceable pipeline",
+    tag: "Sales · CRM · AI",
+    solution: "Pulls deals out of private spreadsheets, inboxes and phones into one pipeline the whole sales team works from",
+    summary:
+      "The company's sales and marketing operation as software: a Kanban pipeline over leads from six sources, WhatsApp and email outreach from inside the CRM, drip campaigns, a visual WhatsApp chatbot builder and an AI morning briefing — plus the founder's standalone sales engine, a 97,707-contact universe and a ₹20 Cr/month target, moved off spreadsheets and into the ERP.",
+    stats: [
+      { value: "614", label: "leads & deals in the pipeline" },
+      { value: "97,707", label: "contacts in the sales universe" },
+      { value: "6", label: "lead sources, each traceable" },
+      { value: "₹20 Cr", label: "monthly target tracked live" },
+    ],
+    problem:
+      "Sales ran on the founder's private spreadsheets, a workbook of architect meetings, a shared mailbox and personal phones. Nobody could see the whole pipeline, website enquiries sat in a general bucket with no record of how fast anyone replied, and when a salesperson left, their deals went quiet with them.",
+    built: [
+      "Drag-and-drop Kanban pipeline with stages that enforce their own rules — a deal can't be marked Won without a value and a note, and a Lost deal becomes eligible for re-engagement after 90 days.",
+      "100-point lead scoring across budget, source, profile completeness, 30-day activity and stage, rolled into Hot / Warm / Lukewarm / Cold and re-scored after every call and meeting.",
+      "Outreach from inside the CRM: WhatsApp and email per lead, drip sequences with media, a rich-text email template editor with open/click tracking, and a STOP reply opting a lead out of every campaign automatically.",
+      "Visual WhatsApp chatbot builder on a node canvas with a simulator; inbound replies are matched to their lead by phone, logged on the timeline, alerted to the team and handed to the chatbot.",
+      "The founder's sales engine brought in from spreadsheets: a Contact Universe kept apart from real leads (\"Add to pipeline\" graduates one contact at a time), a ₹20 Cr/month target dashboard with a weighted pipeline and critical list, and the founder's deals handed to a new owner with every next action turned into a dated task.",
+      "A desk per source — Website Leads with reply time per enquiry and the form that captured it, an Architect Drive showing where each firm's conversation stopped, a sales-mailbox pipeline — plus a meetings log, a profiles & pitches library and a phone-first quick-action bar.",
+      "A public, sector-segmented project showcase personalised per prospect: a rep shares the link, and the prospect opening it is logged on the lead's timeline.",
+      "Beyond the ERP: the company website grown from 41 to 169 live pages across 26 cities as an SEO + GEO content engine, with an audit and fix directives for AI-search visibility.",
+    ],
+    architecture: [
+      "Lives in its own schema on the shared platform Postgres. RLS makes data readable only by an active ERP profile — not any platform login, not the anon key — and new sign-ups wait until an admin activates them.",
+      "Provenance is a column, not a guess: every lead and timeline entry carries its data set (ERP, Website, Founder Pipeline, Founder Universe, Architect Drive, Sales BD), shown as a coloured tag and a tab everywhere.",
+      "Idempotent, dry-run-able import scripts with written merge rules — company-only matches merge only when one side names no person, and an import never moves a deal backwards — plus a read-only \"as received\" snapshot of each source row beside the live deal.",
+      "WhatsApp runs on the company's self-hosted gateway behind a route compatible with the old vendor's API, so leaving the paid vendor was a URL and secret swap; every sender returns a result instead of throwing.",
+      "Webhooks and Vercel crons verify their own secrets; the crons drive campaign drips, overdue and stale-lead flags, and the morning briefing.",
+    ],
+    ai: [
+      "Claude Haiku behind a server-side helper that tolerates fenced or prose-wrapped JSON — drafts WhatsApp and email messages from a lead's recent history, recaps a lead's full timeline, and summarises pipeline health.",
+      "A WhatsApp morning briefing, Monday to Saturday: overdue follow-ups, hot leads going cold and deals in negotiation, written by Claude from live pipeline data.",
+      "Website enquiries are AI-categorised the moment they land, fire-and-forget, so a failed model call can never cost a lead.",
+      "Where a person should decide, nothing auto-sends: company profiles and pitches open pre-filled in WhatsApp or email, and a human taps send.",
+    ],
+    impact: [
+      "Six lead sources feed one pipeline, and every deal still shows where it came from.",
+      "When a salesperson leaves, their book stays: each deal keeps its timeline, tasks and original source record.",
+      "Leadership reads the target, weighted pipeline and critical list from one dashboard instead of a private spreadsheet.",
+    ],
+    stack: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Supabase", "Postgres RLS", "TanStack Query", "Zustand", "React Flow", "Tiptap", "Recharts", "Resend", "Claude", "WhatsApp Gateway", "Vercel Cron"],
+    accent: "#d946ef",
+  },
+  {
     slug: "lead-scraper",
     title: "Lead Scraper",
     short: "Vendor discovery with a pay-once cache",
@@ -404,39 +451,5 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ["Python", "Whisper", "Transformers", "ReportLab"],
     accent: "#db2777",
-  },
-  {
-    slug: "marketing-engine",
-    title: "Marketing Engine — ERP, SEO & GEO",
-    short: "Marketing operations, lead automation and AI-search visibility",
-    tag: "Marketing · Growth",
-    solution: "One pipeline from Meta ad click to scored lead in the CRM — and a website tuned for both Google and AI search",
-    summary:
-      "The company's marketing operation as software: a Next.js marketing ERP, Meta Ads lead automation that scores and acknowledges every lead within a minute, and an SEO + GEO (Generative Engine Optimization) overhaul of hagerstone.com backed by a content pipeline.",
-    stats: [
-      { value: "1 min", label: "ad click → scored lead in CRM" },
-      { value: "2", label: "Meta campaigns automated end-to-end" },
-      { value: "GEO", label: "audit & fixes for AI-search visibility" },
-    ],
-    problem:
-      "Leads from Meta campaigns landed in spreadsheets and waited for a human; the website ranked on habit, not strategy — and was invisible to AI search engines.",
-    built: [
-      "Marketing ERP on Next.js with Supabase auth — campaigns, leads and follow-ups in one governed system instead of sheets.",
-      "Meta Ads lead automation: polls campaign sheets every minute, deduplicates against the database, AI-scores each lead and sends the WhatsApp acknowledgement before a human sees it.",
-      "SEO + GEO overhaul of the company website: a full audit with fix directives for AI-search (Generative Engine) visibility, plus a markdown blog pipeline for content marketing.",
-    ],
-    architecture: [
-      "Next.js + Supabase for the ERP; n8n for the lead pipeline; the corporate site rebuilt on Vite + React with structured content.",
-    ],
-    ai: [
-      "AI lead scoring on arrival — commercial fit judged before the first human touch.",
-      "GEO: optimizing for what LLM-powered search engines cite, not just what Google ranks.",
-    ],
-    impact: [
-      "Every ad lead is captured, deduplicated, scored and acknowledged within a minute of arriving.",
-      "Marketing runs from a governed system with the same audit discipline as finance and procurement.",
-    ],
-    stack: ["Next.js", "TypeScript", "Supabase", "n8n", "Meta Ads", "SEO / GEO"],
-    accent: "#d946ef",
   },
 ];
