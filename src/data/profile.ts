@@ -18,7 +18,7 @@ export const profile = {
   about: [
     "I digitised an entire company. At Hagerstone International — a design & build firm running 44 project sites across India — I designed, built and shipped eight production systems that now handle the company's procurement, finance, labour payments, hiring and analytics.",
     "The results are concrete: ₹11.5 Cr of procurement processed through an anti-corruption purchase pipeline, ₹1.96 Cr of payments disbursed with a full audit trail, 837 suppliers under management, and 75 employees running their daily work across 44 project sites. All of it behind one login, on one platform.",
-    "The work goes beyond the ERP: a self-hosted WhatsApp gateway (Plumbline) that replaced the paid messaging vendor, a computer-vision agent that reads 2D architectural plans into bills of quantities, an AI sales-call analyzer, and the company website's SEO/GEO overhaul with Meta Ads lead automation feeding scored leads straight into the CRM.",
+    "The work goes beyond the ERP: a self-hosted WhatsApp gateway (Plumbline) that replaced the paid messaging vendor, a computer-vision agent that reads 2D architectural plans into bills of quantities, and the company website's SEO/GEO overhaul with Meta Ads lead automation feeding scored leads straight into the CRM.",
     "My rule for AI in business: it proposes, a named human disposes. An LLM never releases money. That principle — plus ruthless cost engineering — is why these systems run daily operations, not demos.",
   ],
   /** headline numbers — live figures from the production database */

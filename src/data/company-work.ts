@@ -21,7 +21,7 @@ export const companyIntro = {
   company: "Hagerstone International Pvt. Ltd.",
   role: "Full-Stack & AI Engineer",
   context:
-    "An interior design & turnkey build firm running 44 project sites across India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine running on a self-hosted gateway I built — plus AI tooling for quantity takeoff, sales-call analysis and marketing.",
+    "An interior design & turnkey build firm running 44 project sites across India. I designed and shipped its entire in-house ERP ecosystem — eight production systems unified under one portal, one Postgres, and a WhatsApp-first automation spine running on a self-hosted gateway I built — plus AI tooling for quantity takeoff and marketing.",
   themes: [
     "WhatsApp as the company's operating system — approvals, dispatch and reminders over chat, in English and Hindi",
     "AI proposes, a named human disposes — an LLM never releases money",
@@ -418,38 +418,5 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ["Python", "YOLOv8", "OpenCV", "Tesseract OCR"],
     accent: "#ea580c",
-  },
-  {
-    slug: "sales-call-agent",
-    title: "Sales Call Agent",
-    short: "Every sales call transcribed, scored and reported",
-    tag: "AI · Audio Intelligence",
-    solution: "Turns raw call recordings into engagement-scored transcripts and reports sales leadership can act on",
-    summary:
-      "An audio-intelligence pipeline for sales calls: Whisper transcription with speaker diarization, per-speaker sentiment and engagement scoring, and auto-generated PDF + JSON reports — built for the interior design sales context.",
-    stats: [
-      { value: "2", label: "Whisper backends — local & API" },
-      { value: "per-speaker", label: "sentiment & engagement scoring" },
-      { value: "PDF + JSON", label: "report formats generated" },
-    ],
-    problem:
-      "Sales calls happened and vanished — no transcript, no record of objections, no way to coach reps or compare across the pipeline.",
-    built: [
-      "MP3 ingestion → Whisper transcription with a dual backend: local faster-whisper for cost, OpenAI API for accuracy.",
-      "Speaker diarization with role assignment, so the report knows who was selling and who was buying.",
-      "Sentiment analysis (Transformers) and engagement metrics computed per speaker and per call.",
-      "ReportLab-generated PDF reports with the structured JSON embedded for downstream systems.",
-    ],
-    architecture: [
-      "Python pipeline, runnable fully offline on the local Whisper path — recordings never have to leave the machine.",
-    ],
-    ai: [
-      "Cost-routed transcription: free local model by default, API model when fidelity matters — the same cost-engineering rule as the ERP.",
-    ],
-    impact: [
-      "Sales leadership reviews a call from a two-page report instead of an hour of audio.",
-    ],
-    stack: ["Python", "Whisper", "Transformers", "ReportLab"],
-    accent: "#db2777",
   },
 ];
