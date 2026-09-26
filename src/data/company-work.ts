@@ -90,7 +90,7 @@ export const caseStudies: CaseStudy[] = [
       { value: "254", label: "purchase orders issued" },
     ],
     problem:
-      "Procurement for a construction company is where money leaks: cozy vendor relationships, invisible price gouging, untracked advances. Policy alone doesn't fix it — structure does.",
+      "Procurement for an interior design and fit-out company is where money leaks: cozy vendor relationships, invisible price gouging, untracked advances. Policy alone doesn't fix it — structure does.",
     built: [
       "End-to-end flow: PR → auto-RFQ → quotes → comparison → PO → delivery → GRN → payment reconciliation, plus work orders, BOQs, site stock and advances.",
       "Blind quoting: quotes are shown by reference only until comparison; a 3-quote minimum and no-self-approval are enforced by the system.",
